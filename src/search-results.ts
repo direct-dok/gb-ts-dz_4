@@ -88,7 +88,7 @@ export function getItemsResultSearch(items: Array<String>): String {
           <p>${elem.name}</p>
           <p class="price">${elem.price}&#8381;</p>
         </div>
-        <div class="result-info--map"><i class="map-icon"></i> ${elem.remoteness}км от вас</div>
+        <div class="result-info--map"><i class="map-icon"></i> ${elem.remoteness ? elem.remoteness + ' км от вас' : 'не указано'}</div>
         <div class="result-info--descr">${elem.description}</div>
         <div class="result-info--footer">
             <div>
