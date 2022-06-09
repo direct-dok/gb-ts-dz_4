@@ -107,6 +107,10 @@ export async function search(dataSearch: SearchFormData, callBack): void {
     error = fetchResult
   } else {
     fetchResult = [...fetchResult, ...sdkSearchResult]
+    fetchResult = fetchResult.map(function(el) {
+      el.bookedDates = [getTimestamp(dataSearch.checkin), getTimestamp(dataSearch.checkout)]
+      return el
+    })
   } 
 
   resultSearch = callBack(error, fetchResult)

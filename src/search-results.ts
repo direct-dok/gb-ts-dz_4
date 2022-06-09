@@ -1,6 +1,7 @@
 import { renderBlock } from './lib.js'
 import { addListenerForElements, checkPageElements } from './utility.js'
 import { toggleFavoriteItem, getFavoritesAmount } from './user.js'
+import { booking } from './booking.js'
 
 export function renderSearchStubBlock () {
   renderBlock(
@@ -59,8 +60,13 @@ export function renderSearchResultsBlock (resultSearch: String) {
   )
 
   let elements = checkPageElements('.favorites');
+  let buttonsReserve = checkPageElements('.reserved');
   if(elements.length) {
     addListenerForElements('click', elements, toggleFavoriteItem)
+  }
+
+  if(buttonsReserve.length) {
+    addListenerForElements('click', buttonsReserve, booking)
   }
   
 }
@@ -92,7 +98,7 @@ export function getItemsResultSearch(items: Array<String>): String {
         <div class="result-info--descr">${elem.description}</div>
         <div class="result-info--footer">
             <div>
-              <button>Забронировать</button>
+              <button class="reserved">Забронировать</button>
             </div>
           </div>
         </div>
