@@ -2,7 +2,7 @@ export function addPrefixNull(number:number) :string | number {
     return number < 10 ? '0' + number : number
 }
 
-export async function fetchData(url) {
+export async function fetchData(url:string) {
     let response = await fetch(url);
     let responseText = await response.text();
     let arrayResult = JSON.parse(responseText)
@@ -10,23 +10,22 @@ export async function fetchData(url) {
     return arrayResult;
 }
 
-export function getTimestamp (data: String) {
+export function getTimestamp (data:string):number {
     return Date.parse(data);
 }
 
-export function addListenerForElements(event, elements, callBack) {
+export function addListenerForElements(event, elements, callBack): void {
     elements = Array.from(elements)
     elements.forEach(function(elem) {
         elem.addEventListener(event, callBack)
     })
-    
 }
 
-export function checkPageElements(selector) {
+export function checkPageElements(selector:string): object {
     return document.querySelectorAll(selector)
 }
 
-export function getDataJson(stringJson: String, keys: Array<String>): Object {
+export function getDataJson(stringJson:string, keys:Array<string>): object {
     let object = JSON.parse(stringJson),
         objectResult = {};
 
@@ -36,7 +35,15 @@ export function getDataJson(stringJson: String, keys: Array<String>): Object {
     return objectResult;
 }
 
-export function normalizeDataSDK(obj) {
+export function convertJsonToObject(jsonString:string): array | object {
+    return JSON.parse(jsonString)
+}
+
+export function convertObjectToJson(object:object): string {
+    return JSON.stringify(object)
+}
+
+export function normalizeDataSDK(obj):object {
     let normalizeObject = {};
     normalizeObject['id'] = obj.id
     normalizeObject['name'] = obj.title
@@ -48,4 +55,17 @@ export function normalizeDataSDK(obj) {
         normalizeObject['price'] = obj.totalPrice
     }
     return normalizeObject;
+}
+
+export function checkDataBooking(bookingPeriod: number[], orderPeriod: number[]): boolean {
+    if(
+        (orderPeriod[0] > bookingPeriod[0] && orderPeriod[0] < bookingPeriod[1]) 
+        || (orderPeriod[1] > bookingPeriod[0] && orderPeriod[1] < bookingPeriod[1])
+        || (orderPeriod[0] == bookingPeriod[0] && orderPeriod[1] == bookingPeriod[1])
+        || (orderPeriod[0] == bookingPeriod[1])
+        || (orderPeriod[1] == bookingPeriod[0])
+    ) {
+        return false;
+    }
+    return true;
 }

@@ -23,6 +23,13 @@ export default class Dates {
         return Dates._parseDate(futureDay);
     }
 
+    static timestampToDate(timestamp:number) {
+        const date = new Date(timestamp);
+        let day = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+        return Dates._parseDate(day);
+    }
+
     static _parseDate(date) :string {
         let year = date.getFullYear()
         let month = addPrefixNull(date.getMonth() + 1)
